@@ -5,7 +5,7 @@ const responses = [
     "Hola, soy tu asistente de IA personal. Estoy aquí para ayudarte con cualquier pregunta o tarea que tengas.",
     "Puedo ayudarte con análisis de datos, escritura creativa, programación, y mucho más. ¿En qué puedo asistirte hoy?",
     "Mi objetivo es hacer tu vida más fácil y productiva. Pregúntame lo que necesites y trabajaremos juntos para encontrar la mejor solución.",
-    "Desde resolver problemas complejos hasta tareas cotidianas, estoy diseñado para adaptarme a tus necesidades específicas."
+    "Desde resolver problemas complejos hasta tareas cotidianas, estoy diseñado para adaptarse a tus necesidades específicas."
 ];
 
 // Mobile menu functionality
@@ -184,7 +184,9 @@ async function sendMessage() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
     try {
-        const response = await fetch('http://localhost:3000/chat', { // Asegúrate que esta URL coincida con tu backend
+        // *** ESTA ES LA LÍNEA CLAVE MODIFICADA ***
+        // Ahora apunta a la ruta relativa /api/chat que Vercel enrutará a tu serverless function
+        const response = await fetch('/api/chat', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -223,6 +225,8 @@ function appendMessage(text, sender) {
     chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
 }
 
+// Puedes eliminar esta función si ahora dependes completamente de la IA de OpenAI
+// o mantenerla si quieres alguna lógica de respuesta local para ciertos casos.
 function getRandomAIResponse(userMessage) {
     const lowerCaseMessage = userMessage.toLowerCase();
     if (lowerCaseMessage.includes('hola')) {
