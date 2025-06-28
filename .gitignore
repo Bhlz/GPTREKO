@@ -1,0 +1,4 @@
+# .gitignore
+.env
+backend-ai/node_modules/
+.vercel/
